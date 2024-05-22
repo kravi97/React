@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 
 export default function TextForm(props) {
     const alphabates = 'abcdefghijklmnopqrstuvwxyz';
-
     const [text, setText] = useState('');//hooks
     const [charCount, setCharCount] = useState([]); // New state variable for character count
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [isUnderline, setIsUnderline] = useState(false);
+    const [isStrikeThrough, setIsStrikeThrough] = useState(false);
+    const [charCountWithSpaces, setCharCountWithSpaces] = useState(0);
+    const [charCountWithoutSpaces, setCharCountWithoutSpaces] = useState(0);
 
     const handleUpClick = () => {
         let newText = text.toUpperCase();
@@ -50,18 +55,70 @@ export default function TextForm(props) {
         setCharCount([]);
     }
 
+    const handleCopy = () => {
+        var text = document.getElementById('myBox');
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
+
+    const handleExreaSpaces = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+    }
+
+    const handleBoldClick = () => {
+        setIsBold(!isBold);
+    }
+
+    const handleItalicClick = () => {
+        setIsItalic(!isItalic);
+    }
+
+    const handleUnderlineClick = () => {
+        setIsUnderline(!isUnderline);
+    }
+
+    const handleStrikeThroughClick = () => {
+        setIsStrikeThrough(!isStrikeThrough);
+    }
+
+    const handleCharacterCount = () => {
+        let text = document.getElementById('myBox').value;
+        let charCount = text.length;
+        let charCountWithoutSpaces = text.replace(/\s+/g, '').length;
+
+        setCharCountWithSpaces(charCount);
+        setCharCountWithoutSpaces(charCountWithoutSpaces);
+    }
+
     return (
         <>
-            <div>
+            <div className='container' style={{ color: props.mode === 'dark' ? 'white' : '#042743' }}>
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" id="myBox" rows="8" onChange={handleOnChange} value={text}></textarea>
+                    <textarea className="form-control" id="myBox" rows="8" onChange={handleOnChange}
+                        style={{
+                            backgroundColor: props.mode === 'dark' ? 'grey' : 'white',
+                            color: props.mode === 'dark' ? 'white' : '#042743',
+                            fontWeight: isBold ? 'bold' : 'normal',
+                            fontStyle: isItalic ? 'italic' : 'normal',
+                            textDecoration: isUnderline ? 'underline' : 'none',
+                            textDecoration: isStrikeThrough ? 'line-through' : 'none'
+                        }} value={text}>
+                    </textarea>
                 </div>
-                <button className='btn btn-primary mx-2' onClick={handleUpClick}>Convert to Uppercase</button>
-                <button className='btn btn-primary mx-2' onClick={handleLowClick}>Convert to Lowercase</button>
+                <button className='btn btn-primary mx-2' onClick={handleUpClick}>Uppercase</button>
+                <button className='btn btn-primary mx-2' onClick={handleLowClick}>Lowercase</button>
                 <button className='btn btn-primary mx-2' onClick={clearText}>Clear Text</button>
+                <button className='btn btn-primary mx-2' onClick={handleCopy}>Copy Text</button>
+                <button className='btn btn-primary mx-2' onClick={handleExreaSpaces}>Remove Extra Spaces</button>
+                <button className='btn btn-primary mx-2' onClick={handleBoldClick}>Bold</button>
+                <button className='btn btn-primary mx-2' onClick={handleItalicClick}>Italic</button>
+                <button className='btn btn-primary mx-2' onClick={handleUnderlineClick}>Underline</button>
+                <button className='btn btn-primary mx-2' onClick={handleStrikeThroughClick}>StrikeThrough</button>
+                <button className='btn btn-primary mx-2' onClick={handleCharacterCount}>Character Count</button>
             </div>
-            <div className="container my-3">
+            <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : '#042743' }} >
                 <h2>your text summary</h2>
                 <div className='border border-1 border-warning p-2 '>
                     <p>{text.split(" ").length} words and {text.length} chars</p>
@@ -92,6 +149,11 @@ export default function TextForm(props) {
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <h2>Chararcters count with and without spaces</h2>
+                <div>{`Chars with spaces - ${charCountWithSpaces}`}<br />
+                    {`Chars without spaces - ${charCountWithoutSpaces}`}
                 </div>
             </div>
         </>
