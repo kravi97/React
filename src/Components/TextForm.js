@@ -14,6 +14,7 @@ export default function TextForm(props) {
     const handleUpClick = () => {
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to Uppercase", "success");
     }
 
     const handleOnChange = (event) => {
@@ -23,6 +24,7 @@ export default function TextForm(props) {
     const handleLowClick = () => {
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to Lowercase", "success");
     }
 
     const getAlphabates = () => {
@@ -53,17 +55,20 @@ export default function TextForm(props) {
     const clearText = () => {
         setText('');
         setCharCount([]);
+        props.showAlert("Text Cleared", "success");
     }
 
     const handleCopy = () => {
         var text = document.getElementById('myBox');
         text.select();
         navigator.clipboard.writeText(text.value);
+        props.showAlert("Text Copied", "success");
     }
 
     const handleExreaSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
+        props.showAlert("Extra spaces removed", "success");
     }
 
     const handleBoldClick = () => {
@@ -121,7 +126,7 @@ export default function TextForm(props) {
             <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : '#042743' }} >
                 <h2>your text summary</h2>
                 <div className='border border-1 border-warning p-2 '>
-                    <p>{text.split(" ").length} words and {text.length} chars</p>
+                    <p>{text.trim() === '' ? 0 : text.match(/\S+/g).length} words and {text.replace(/\s+/g, '').length} characters</p>
                     <p>{0.008 * text.split(" ").length} Minutes Read</p>
                 </div>
 
