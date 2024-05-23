@@ -98,7 +98,7 @@ export default function TextForm(props) {
 
     return (
         <>
-            <div className='container' style={{ color: props.mode === 'dark' ? 'white' : '#042743' }}>
+            <div className='container' style={{ color: props.mode === 'dark' ? 'white' : (props.mode === 'success' ? 'green' : '#042743') }}>
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
                     <textarea className="form-control" id="myBox" rows="8" onChange={handleOnChange}
@@ -107,11 +107,11 @@ export default function TextForm(props) {
                             color: props.mode === 'dark' ? 'white' : '#042743',
                             fontWeight: isBold ? 'bold' : 'normal',
                             fontStyle: isItalic ? 'italic' : 'normal',
-                            textDecoration: isUnderline ? 'underline' : 'none',
-                            textDecoration: isStrikeThrough ? 'line-through' : 'none'
+                            textDecoration: `${isUnderline ? 'underline' : ''} ${isStrikeThrough ? 'line-through' : ''}`.trim()
                         }} value={text}>
                     </textarea>
                 </div>
+                {/* <button className={`btn btn-${props.mode === 'light' ? 'primary' : props.mode} mx-2`} onClick={handleUpClick}>Uppercase</button> */}
                 <button className='btn btn-primary mx-2' onClick={handleUpClick}>Uppercase</button>
                 <button className='btn btn-primary mx-2' onClick={handleLowClick}>Lowercase</button>
                 <button className='btn btn-primary mx-2' onClick={clearText}>Clear Text</button>
