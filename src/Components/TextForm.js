@@ -59,10 +59,7 @@ export default function TextForm(props) {
     }
 
     const handleCopy = () => {
-        var text = document.getElementById('myBox');
-        text.select();
-        navigator.clipboard.writeText(text.value);
-        document.getSelection().removeAllRanges();//to remove the highlighted text
+        navigator.clipboard.writeText(text);
         props.showAlert("Text Copied", "success");
     }
 
@@ -112,7 +109,6 @@ export default function TextForm(props) {
                         }} value={text}>
                     </textarea>
                 </div>
-                {/* <button className={`btn btn-${props.mode === 'light' ? 'primary' : props.mode} mx-2`} onClick={handleUpClick}>Uppercase</button> */}
                 <button disabled={text.length === 0} className='btn btn-primary mx-2' onClick={handleUpClick}>Uppercase</button>
                 <button disabled={text.length === 0} className='btn btn-primary mx-2' onClick={handleLowClick}>Lowercase</button>
                 <button disabled={text.length === 0} className='btn btn-primary mx-2' onClick={clearText}>Clear Text</button>
