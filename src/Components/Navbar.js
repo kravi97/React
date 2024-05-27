@@ -18,6 +18,9 @@ export default function Navbar({ title = 'Set title here', aboutText = 'About Te
                         <li className="nav-item">
                             <Link className={`nav-Link active text-decoration-none text-${mode === 'dark' ? 'light' : 'dark'}`} to="/about">{aboutText}</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className={`nav-Link ms-3 active text-decoration-none text-${mode === 'dark' ? 'light' : 'dark'}`} to="/registration">Registration</Link>
+                        </li>
                     </ul>
 
                     <div className="d-flex">

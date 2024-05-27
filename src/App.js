@@ -5,6 +5,7 @@ import TextForm from './Components/TextForm';
 import React, { useState } from 'react';
 import About from './Components/About';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RegistrationForm from './Components/RegistrationForm';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -53,6 +54,7 @@ function App() {
           <Routes>
             <Route exact path="/about" element={<About mode={mode} />} />
             <Route exact path="/" element={<TextForm heading="Enter the text to analyze" mode={mode} showAlert={showAlert} />} />
+            <Route exact path="/registration" element={<RegistrationForm showAlert={showAlert} />} />
           </Routes>
         </div>
       </Router>
